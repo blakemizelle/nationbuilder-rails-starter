@@ -52,9 +52,14 @@ heroku config:set NB_CLIENT_SECRET=your_client_secret_here
 # Set redirect URI (use your actual Heroku app URL)
 heroku config:set NB_REDIRECT_URI=https://your-app-name.herokuapp.com/oauth/callback
 
-# Verify config
+# ⚠️ CRITICAL: Set Rails master key for credentials decryption
+heroku config:set RAILS_MASTER_KEY=$(cat config/master.key)
+
+# Verify all config vars are set
 heroku config
 ```
+
+**Why RAILS_MASTER_KEY is needed**: Your app uses Rails encrypted credentials to store the database encryption keys. Without the master key, Heroku can't decrypt these credentials and token encryption will fail.
 
 ### 5. Update NationBuilder OAuth App
 

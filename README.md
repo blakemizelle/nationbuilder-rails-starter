@@ -22,6 +22,8 @@ A production-ready Rails application for building NationBuilder App Store integr
 - PostgreSQL 15+
 - NationBuilder OAuth App credentials
 
+**New to Ruby/Rails?** See [SETUP.md](SETUP.md) for detailed installation instructions.
+
 ### 2. Install Dependencies
 
 ```bash

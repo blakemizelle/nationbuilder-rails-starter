@@ -4,6 +4,8 @@
 
 You now have a fully-functional NationBuilder OAuth integration built with Rails 7, PostgreSQL, and Tailwind CSS.
 
+**Prerequisites**: This guide assumes Ruby 3.3+, Rails 7.2+, and PostgreSQL 15+ are already installed. If not, see [SETUP.md](SETUP.md) first.
+
 ---
 
 ## What Was Built

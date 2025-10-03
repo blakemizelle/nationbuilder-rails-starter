@@ -1,4 +1,10 @@
-# NationBuilder Rails App - Setup Guide
+# NationBuilder Rails App - Prerequisites Setup
+
+**Purpose**: Install Ruby, Rails, and PostgreSQL before starting development.
+
+**Already have these installed?** Skip to [GETTING_STARTED.md](GETTING_STARTED.md)
+
+---
 
 ## Prerequisites Setup (Do This First!)
 
@@ -60,63 +66,26 @@ gem install bundler
 
 ---
 
-## Rails App Creation (Once Ruby/Rails Installed)
+## Verify Installation
 
-### Step 1: Create Rails App
-```bash
-cd /Users/blakemizelle/blakes_projects/nationbuilder-rails-starter/nb-rails-app
-
-# Create Rails app with PostgreSQL and Tailwind
-rails new . --database=postgresql --css=tailwind --javascript=importmap \
-  --skip-test --skip-jbuilder --skip-action-mailbox \
-  --skip-action-text --skip-active-storage
-```
-
-### Step 2: Install Dependencies
-```bash
-bundle install
-```
-
-### Step 3: Setup Database
-```bash
-# Create database
-rails db:create
-
-# Run migrations (we'll create these next)
-rails db:migrate
-```
-
----
-
-## What Happens Next
-
-Once you run the above commands, I'll provide:
-
-1. **All Application Files** - Models, Controllers, Services, Views
-2. **Database Migrations** - Installation table schema
-3. **Configuration Files** - Routes, initializers, environment variables
-4. **Deployment Guide** - Heroku setup step-by-step
-5. **Testing Guide** - How to test the OAuth flow
-
----
-
-## Quick Reference
+Once installed, verify everything works:
 
 ```bash
-# Start development server
-rails server
+# Check Ruby version
+ruby --version
+# Should show: ruby 3.3.0 or higher
 
-# Create database
-rails db:create
+# Check Rails version
+rails --version
+# Should show: Rails 7.2.2 or higher
 
-# Run migrations
-rails db:migrate
+# Check PostgreSQL
+psql --version
+# Should show: psql (PostgreSQL) 15.x or higher
 
-# Rails console
-rails console
-
-# Generate migration
-rails g migration MigrationName
+# Test PostgreSQL connection
+psql postgres -c "SELECT version();"
+# Should connect without errors
 ```
 
 ---
@@ -136,8 +105,17 @@ rails g migration MigrationName
 
 ---
 
-**Next Steps:**
-1. Install Ruby 3.3+ (see above)
-2. Install Rails 7.1+ (see above)
-3. Run `rails new` command (see above)
-4. Let me know when done - I'll provide all the application files!
+## Next Steps
+
+✅ Once all prerequisites are installed and verified:
+
+1. **Continue to [GETTING_STARTED.md](GETTING_STARTED.md)** for application setup
+2. **Or see [README.md](README.md)** for a quick overview
+
+---
+
+## Need Help?
+
+- **Ruby Installation Issues**: [Ruby Install Guide](https://www.ruby-lang.org/en/documentation/installation/)
+- **Rails Installation Issues**: [Rails Getting Started](https://guides.rubyonrails.org/getting_started.html)
+- **PostgreSQL Issues**: [PostgreSQL Downloads](https://www.postgresql.org/download/)
