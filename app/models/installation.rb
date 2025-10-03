@@ -49,6 +49,10 @@ class Installation < ApplicationRecord
     status == "active" && !expired?
   end
 
+  def uninstalled?
+    status == "uninstalled"
+  end
+
   def touch_last_used!
     touch(:last_used_at)
   end
