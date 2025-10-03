@@ -1,11 +1,11 @@
 class OAuthController < ApplicationController
-  # Step 1: User arrives from NB App Store with ?nation=slug
+  # Step 1: User arrives from NB App Store with ?nation=slug OR enters it manually
   def install
     nation_slug = params[:nation]
 
     unless nation_slug.present?
-      # Show error page instead of redirecting (prevents loop)
-      render html: "<h1>Missing Nation Parameter</h1><p>Please visit this URL with ?nation=yourslug</p><p>Example: http://localhost:3000/?nation=yourslug</p>".html_safe, status: :bad_request
+      # Show landing page with nation input form
+      render :landing
       return
     end
 
