@@ -8,14 +8,17 @@ class DashboardController < ApplicationController
     client = NationBuilder::ApiClient.new(@nation_slug)
     @user_info = client.signups.me
   rescue NationBuilder::ApiClient::AuthenticationError => e
-    # Token refresh failed - installation is corrupted, delete it and force reinstall
+    # Token refresh failed - installation is corrupted, delete it and restart OAuth
+    Rails.logger.warn "Token refresh failed for #{@nation_slug}, forcing reinstall"
     @installation&.uninstall!
-    redirect_to root_path(nation: @nation_slug), alert: "Authentication expired. Please reconnect your nation."
+    flash[:alert] = "Your authentication expired. Reconnecting..."
+    redirect_to root_path(nation: @nation_slug)
   rescue => e
     Rails.logger.error "Dashboard error: #{e.message}"
     # For other errors, also force reinstall to be safe
     @installation&.uninstall!
-    redirect_to root_path(nation: @nation_slug), alert: "Connection error. Please reconnect your nation."
+    flash[:alert] = "Connection error. Please reconnect your nation."
+    redirect_to root_path(nation: @nation_slug)
   end
 
   private
