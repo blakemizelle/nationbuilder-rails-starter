@@ -7,7 +7,7 @@ module OAuth
     
     def authorization_url
       # Generate and store PKCE pair
-      pkce = PkceGenerator.generate
+      pkce = OAuth::PkceGenerator.generate
       @session[:code_verifier] = pkce[:code_verifier]
       
       # Generate and store state for CSRF protection
@@ -48,7 +48,7 @@ module OAuth
       end
       
       # Exchange code for tokens
-      token_service = TokenService.new(nation_slug)
+      token_service = OAuth::TokenService.new(nation_slug)
       tokens = token_service.exchange_code(
         code: code,
         code_verifier: code_verifier
