@@ -15,7 +15,7 @@
   <div class="bg-white border border-gray-200 p-8">
     <h2 class="text-sm font-semibold text-gray-900 uppercase mb-4">Connect Your Nation</h2>
 
-    <%= form_with url: root_path, method: :get, class: "space-y-4" do |f| %>
+    <%= form_with url: root_path, method: :get, class: "space-y-4", data: { turbo: false } do |f| %>
       <div>
         <label for="nation" class="block text-xs font-semibold text-gray-500 uppercase mb-2">
           Nation Slug
