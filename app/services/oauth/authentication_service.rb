@@ -35,11 +35,6 @@ module OAuth
     
   def handle_callback(code:, state:)
     # Verify state parameter (CSRF protection)
-    Rails.logger.info "=== State Verification ==="
-    Rails.logger.info "Received state: #{state}"
-    Rails.logger.info "Session state: #{@session[:oauth_state]}"
-    Rails.logger.info "Match: #{state == @session[:oauth_state]}"
-    
     unless state == @session[:oauth_state]
       raise "Invalid state parameter - possible CSRF attack"
     end

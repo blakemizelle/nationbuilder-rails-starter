@@ -47,24 +47,43 @@ You now have a fully-functional NationBuilder OAuth integration built with Rails
 
 #### B. Configure Environment
 
-Create `.env` file in project root:
+**Step 1: Generate encryption keys**
 
 ```bash
-# .env (for local development only)
+bin/rails db:encryption:init
+```
+
+This outputs three keys. Copy the entire `active_record_encryption` block.
+
+**Step 2: Add to Rails credentials**
+
+```bash
+EDITOR="nano" bin/rails credentials:edit
+# Or use your preferred editor: code, vim, etc.
+```
+
+Paste the encryption keys into the file:
+
+```yaml
+active_record_encryption:
+  primary_key: YOUR_PRIMARY_KEY
+  deterministic_key: YOUR_DETERMINISTIC_KEY
+  key_derivation_salt: YOUR_KEY_DERIVATION_SALT
+```
+
+Save and exit.
+
+**Step 3: Create `.env` file**
+
+Create `.env` file in project root with your NationBuilder OAuth credentials:
+
+```bash
 NB_CLIENT_ID=your_client_id_here
 NB_CLIENT_SECRET=your_client_secret_here
 NB_REDIRECT_URI=http://localhost:3000/oauth/callback
 ```
 
-Add `dotenv-rails` to Gemfile (development group):
-
-```ruby
-group :development, :test do
-  gem 'dotenv-rails'
-end
-```
-
-Then: `bundle install`
+**Note**: `dotenv-rails` is already in the Gemfile, so no need to add it.
 
 #### C. Start the App
 

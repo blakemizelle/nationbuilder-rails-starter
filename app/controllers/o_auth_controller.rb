@@ -31,12 +31,6 @@ class OAuthController < ApplicationController
   def callback
     nation_slug = params[:nation] || session[:nation_slug]
     
-    Rails.logger.info "=== OAuth Callback Debug ==="
-    Rails.logger.info "Nation slug: #{nation_slug}"
-    Rails.logger.info "Code: #{params[:code]}"
-    Rails.logger.info "State: #{params[:state]}"
-    Rails.logger.info "Session nation: #{session[:nation_slug]}"
-    
     auth_service = OAuth::AuthenticationService.new(
       session: session,
       nation_slug: nation_slug
@@ -47,11 +41,9 @@ class OAuthController < ApplicationController
       state: params[:state]
     )
     
-    Rails.logger.info "Installation saved: #{installation.nation_slug}"
     redirect_to dashboard_path, notice: "Successfully connected to #{installation.nation_slug}!"
   rescue => e
     Rails.logger.error "OAuth callback error: #{e.class} - #{e.message}"
-    Rails.logger.error e.backtrace.first(10).join("\n")
     redirect_to root_path, alert: "Authentication failed: #{e.message}"
   end
   
