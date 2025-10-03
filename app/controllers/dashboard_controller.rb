@@ -1,3 +1,6 @@
+# Explicitly require service classes
+require_dependency Rails.root.join('app/services/nation_builder/api_client')
+
 class DashboardController < ApplicationController
   before_action :require_installation
   

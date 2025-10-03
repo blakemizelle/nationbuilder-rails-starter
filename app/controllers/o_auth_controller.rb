@@ -1,3 +1,6 @@
+# Explicitly require service classes (Rails autoloading workaround)
+require_dependency Rails.root.join('app/services/oauth/authentication_service')
+
 class OAuthController < ApplicationController
   # Step 1: User arrives from NB App Store with ?nation=slug
   def install
