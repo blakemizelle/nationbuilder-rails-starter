@@ -15,7 +15,7 @@ class CreateInstallations < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    
+
     add_index :installations, :nation_slug, unique: true
     add_index :installations, :status
     add_index :installations, :expires_at

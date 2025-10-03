@@ -35,10 +35,10 @@ module NbRailsApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    
+
     # Configure inflections for proper module naming
     config.autoload_paths += %W[#{config.root}/app/services]
-    
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

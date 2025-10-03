@@ -1,12 +1,12 @@
 module OAuth
   class TokenService
     include HTTParty
-    
+
     def initialize(nation_slug)
       @nation_slug = nation_slug
       @base_url = "https://#{nation_slug}.nationbuilder.com"
     end
-    
+
     def exchange_code(code:, code_verifier:)
       response = self.class.post(
         "#{@base_url}/oauth/token",
@@ -20,7 +20,7 @@ module OAuth
         },
         headers: { "Content-Type" => "application/x-www-form-urlencoded" }
       )
-      
+
       if response.success?
         tokens = JSON.parse(response.body)
         add_expiry_timestamp(tokens)
@@ -28,7 +28,7 @@ module OAuth
         raise "Token exchange failed: #{response.code} - #{response.body}"
       end
     end
-    
+
     def refresh_tokens(refresh_token)
       response = self.class.post(
         "#{@base_url}/oauth/token",
@@ -40,7 +40,7 @@ module OAuth
         },
         headers: { "Content-Type" => "application/x-www-form-urlencoded" }
       )
-      
+
       if response.success?
         tokens = JSON.parse(response.body)
         add_expiry_timestamp(tokens)
@@ -48,9 +48,9 @@ module OAuth
         raise "Token refresh failed: #{response.code} - #{response.body}"
       end
     end
-    
+
     private
-    
+
     def oauth_config
       @oauth_config ||= {
         client_id: ENV.fetch("NB_CLIENT_ID"),
@@ -58,7 +58,7 @@ module OAuth
         redirect_uri: ENV.fetch("NB_REDIRECT_URI")
       }
     end
-    
+
     def add_expiry_timestamp(tokens)
       tokens["expires_at"] = Time.current.to_i + tokens["expires_in"].to_i
       tokens
