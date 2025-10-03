@@ -1,6 +1,6 @@
 # NationBuilder Rails Starter
 
-A production-ready Rails application for building NationBuilder App Store integrations. Features OAuth 2.0 with PKCE, multi-tenant support, and persistent token storage in PostgreSQL.
+Building a real NationBuilder integration always starts the same way—OAuth, token storage, multi-tenant plumbing, and “is this deployed yet?” Heroku setup. This starter gives you a reliable foundation so you can ship customer-ready features (people sync, donations, events, webhooks) without rebuilding authentication and deployment every time.
 
 ## Features
 
