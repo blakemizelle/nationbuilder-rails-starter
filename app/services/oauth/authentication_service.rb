@@ -33,11 +33,16 @@ module OAuth
       "#{base_url}/oauth/authorize?#{query_string}"
     end
     
-    def handle_callback(code:, state:)
-      # Verify state parameter (CSRF protection)
-      unless state == @session[:oauth_state]
-        raise "Invalid state parameter - possible CSRF attack"
-      end
+  def handle_callback(code:, state:)
+    # Verify state parameter (CSRF protection)
+    Rails.logger.info "=== State Verification ==="
+    Rails.logger.info "Received state: #{state}"
+    Rails.logger.info "Session state: #{@session[:oauth_state]}"
+    Rails.logger.info "Match: #{state == @session[:oauth_state]}"
+    
+    unless state == @session[:oauth_state]
+      raise "Invalid state parameter - possible CSRF attack"
+    end
       
       # Get stored values from session
       code_verifier = @session[:code_verifier]
