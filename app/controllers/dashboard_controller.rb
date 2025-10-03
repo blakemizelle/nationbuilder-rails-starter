@@ -8,10 +8,14 @@ class DashboardController < ApplicationController
     client = NationBuilder::ApiClient.new(@nation_slug)
     @user_info = client.signups.me
   rescue NationBuilder::ApiClient::AuthenticationError => e
-    redirect_to root_path(nation: @nation_slug), alert: "Please install the app first"
+    # Token refresh failed - installation is corrupted, delete it and force reinstall
+    @installation&.uninstall!
+    redirect_to root_path(nation: @nation_slug), alert: "Authentication expired. Please reconnect your nation."
   rescue => e
     Rails.logger.error "Dashboard error: #{e.message}"
-    redirect_to root_path(nation: @nation_slug), alert: "Error loading dashboard: #{e.message}"
+    # For other errors, also force reinstall to be safe
+    @installation&.uninstall!
+    redirect_to root_path(nation: @nation_slug), alert: "Connection error. Please reconnect your nation."
   end
 
   private
