@@ -1,0 +1,99 @@
+<div>
+<div class="max-w-6xl mx-auto px-4 py-8">
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-lg p-8 text-white mb-8">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-3xl font-bold mb-2">Connected to NationBuilder</h1>
+        <p class="text-blue-100">✓ Your OAuth integration is working perfectly!</p>
+      </div>
+      <%= button_to "Uninstall", uninstall_path, method: :delete, 
+          class: "bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-50 transition",
+          data: { turbo_confirm: "Are you sure you want to uninstall?" } %>
+    </div>
+  </div>
+
+  <!-- Installation Info -->
+  <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+    <h2 class="text-2xl font-semibold mb-6">Connection Information</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-600">
+        <div class="text-sm font-semibold text-gray-600 mb-1">Nation</div>
+        <div class="text-lg font-medium text-gray-900"><%= @installation.nation_slug %></div>
+      </div>
+      
+      <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-600">
+        <div class="text-sm font-semibold text-gray-600 mb-1">Status</div>
+        <div class="text-lg font-medium text-gray-900">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+            Active
+          </span>
+        </div>
+      </div>
+      
+      <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-600">
+        <div class="text-sm font-semibold text-gray-600 mb-1">Installed</div>
+        <div class="text-lg font-medium text-gray-900">
+          <%= @installation.installed_at.strftime("%B %d, %Y at %I:%M %p") %>
+        </div>
+      </div>
+      
+      <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-600">
+        <div class="text-sm font-semibold text-gray-600 mb-1">Last Used</div>
+        <div class="text-lg font-medium text-gray-900">
+          <%= time_ago_in_words(@installation.last_used_at) %> ago
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Info from NationBuilder API -->
+  <div class="bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-2xl font-semibold mb-6">NationBuilder User Info</h2>
+    
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <div class="text-sm font-semibold text-gray-600">Username</div>
+          <div class="text-lg text-gray-900"><%= @user_info["username"] || "N/A" %></div>
+        </div>
+        
+        <div>
+          <div class="text-sm font-semibold text-gray-600">Full Name</div>
+          <div class="text-lg text-gray-900"><%= @user_info["full_name"] || "N/A" %></div>
+        </div>
+        
+        <div>
+          <div class="text-sm font-semibold text-gray-600">Email</div>
+          <div class="text-lg text-gray-900"><%= @user_info["email"] || "N/A" %></div>
+        </div>
+        
+        <div>
+          <div class="text-sm font-semibold text-gray-600">Signup ID</div>
+          <div class="text-lg text-gray-900"><%= @user_info["id"] || "N/A" %></div>
+        </div>
+      </div>
+      
+      <!-- Raw JSON (for debugging) -->
+      <details class="mt-6">
+        <summary class="text-sm font-semibold text-gray-600 cursor-pointer hover:text-gray-900">
+          View Raw API Response
+        </summary>
+        <pre class="mt-2 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><%= JSON.pretty_generate(@user_info) %></pre>
+      </details>
+    </div>
+  </div>
+
+  <!-- Next Steps -->
+  <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+    <h3 class="text-lg font-semibold text-blue-900 mb-3">🎉 Success! What's Next?</h3>
+    <ul class="space-y-2 text-blue-800">
+      <li>✅ OAuth flow is working perfectly</li>
+      <li>✅ Tokens are securely stored in PostgreSQL</li>
+      <li>✅ NationBuilder API integration is active</li>
+      <li>📝 Ready to build your integration features!</li>
+    </ul>
+  </div>
+</div>
+</div>
