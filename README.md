@@ -5,11 +5,13 @@ Building a real NationBuilder integration always starts the same way—OAuth, to
 ## Features
 
 ✅ **OAuth 2.0 with PKCE** - Secure authentication flow  
-✅ **Multi-Tenant** - Nation-based token storage  
+✅ **Multi-Tenant** - Connect multiple nations simultaneously  
 ✅ **PostgreSQL** - Persistent installations with encrypted tokens  
 ✅ **Auto Token Refresh** - Seamless experience  
+✅ **Self-Healing** - Auto-reconnects when tokens expire  
+✅ **Landing Page** - User-friendly form to connect nations  
 ✅ **NationBuilder API v2** - Integrated client  
-✅ **Modern UI** - Tailwind CSS dashboard  
+✅ **Modern UI** - Minimal, clean dashboard  
 ✅ **Heroku Ready** - One-command deployment  
 
 ---
@@ -63,7 +65,11 @@ rails db:migrate
 ./bin/dev  # Runs Rails + Tailwind CSS compiler
 ```
 
-Visit: `http://localhost:3000/?nation=yourslug`
+**Visit:** `http://localhost:3000/`
+
+You'll see a landing page where you can enter your nation slug and click "Connect Nation" to start the OAuth flow.
+
+**Or use the direct URL:** `http://localhost:3000/?nation=yourslug` to skip the form.
 
 ---
 
@@ -96,7 +102,7 @@ Visit: `http://localhost:3000/?nation=yourslug`
 
 ### Routes
 ```ruby
-GET  /                  # Install (redirects to OAuth or dashboard)
+GET  /                  # Landing page (enter nation) OR install flow if ?nation= provided
 GET  /oauth/callback    # OAuth callback handler
 DELETE /uninstall       # Uninstall app
 GET  /dashboard         # Show connection status & user info
@@ -108,15 +114,17 @@ GET  /dashboard         # Show connection status & user info
 
 ### Installation Flow
 
-1. **User clicks "Install" on NB App Store**
-   ```
-   Redirects to: https://yourapp.com/?nation=myorg
-   ```
+**Option A: From NationBuilder App Store**
+1. User clicks "Install" → Redirects to: `https://yourapp.com/?nation=myorg`
+2. App starts OAuth flow automatically
 
-2. **App checks if already installed**
-   - If yes → Dashboard
-   - If no → OAuth flow
+**Option B: Direct Visit**
+1. User visits `https://yourapp.com/`
+2. Sees landing page with nation slug input form
+3. Enters nation slug and clicks "Connect Nation"
+4. App starts OAuth flow
 
+**Both options then:**
 3. **OAuth Authentication**
    - Generate PKCE pair
    - Redirect to NationBuilder OAuth
@@ -132,10 +140,15 @@ GET  /dashboard         # Show connection status & user info
    - Tokens stored by nation_slug
    - Works across sessions/browsers
    - Auto-refresh on expiry
+   - **Can connect multiple nations simultaneously**
 
 ### Uninstall Flow
 
-User clicks "Uninstall" → Soft delete in database → Can reinstall later
+User clicks "Uninstall" on dashboard → Soft delete in database → Can reinstall later
+
+### Auto-Reconnection Flow
+
+If tokens expire/fail → Installation auto-uninstalled → Redirects to OAuth → Fresh tokens saved
 
 ---
 

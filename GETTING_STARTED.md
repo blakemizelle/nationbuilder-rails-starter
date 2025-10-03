@@ -94,17 +94,30 @@ NB_REDIRECT_URI=http://localhost:3000/oauth/callback
 ./bin/dev
 
 # Visit in browser
-open http://localhost:3000/?nation=yourslug
+open http://localhost:3000/
 ```
 
-Replace `yourslug` with your actual NationBuilder nation slug.
+**You'll see a landing page with two options:**
+
+**Option 1: Use the form**
+1. Enter your nation slug (e.g., "myorg")
+2. Click "Connect Nation"
+3. Redirects to NationBuilder OAuth
+
+**Option 2: Use direct URL**
+```
+http://localhost:3000/?nation=yourslug
+```
 
 #### D. Test OAuth Flow
 
-1. Click through OAuth authorization
-2. Authorize on NationBuilder
-3. Should redirect back to dashboard
-4. See your user info from NB API
+1. Enter nation slug or visit with `?nation=` parameter
+2. Redirected to NationBuilder to authorize
+3. Click "Authorize"
+4. Redirected back to dashboard
+5. See your user info from NB API
+
+**Test multi-tenant:** Open an incognito window and connect a different nation - both work simultaneously!
 
 ---
 
