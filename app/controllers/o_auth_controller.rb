@@ -44,7 +44,12 @@ class OAuthController < ApplicationController
     redirect_to dashboard_path, notice: "Successfully connected to #{installation.nation_slug}!"
   rescue => e
     Rails.logger.error "OAuth callback error: #{e.class} - #{e.message}"
-    redirect_to root_path, alert: "Authentication failed: #{e.message}"
+    # Redirect back to install with nation param if we have it
+    if nation_slug.present?
+      redirect_to root_path(nation: nation_slug), alert: "Authentication failed: #{e.message}"
+    else
+      render html: "<h1>Authentication Failed</h1><p>#{e.message}</p><p><a href='/'>Try again</a></p>".html_safe, status: :internal_server_error
+    end
   end
 
   # Step 3: User uninstalls
