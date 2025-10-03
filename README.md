@@ -1,6 +1,6 @@
-# NationBuilder Rails OAuth Integration
+# NationBuilder Rails Starter
 
-A production-ready Rails application for NationBuilder App Store integrations. Features OAuth 2.0 with PKCE, multi-tenant support, and persistent token storage in PostgreSQL.
+A production-ready Rails application for building NationBuilder App Store integrations. Features OAuth 2.0 with PKCE, multi-tenant support, and persistent token storage in PostgreSQL.
 
 ## Features
 

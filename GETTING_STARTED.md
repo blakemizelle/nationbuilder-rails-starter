@@ -282,7 +282,7 @@ heroku restart
 ### Documentation
 - **[README.md](README.md)** - Complete documentation
 - **[HEROKU_DEPLOY.md](HEROKU_DEPLOY.md)** - Deployment guide
-- **[GitHub Repo](https://github.com/blakemizelle/nationbuilder-rails-app)** - Source code
+- **[GitHub Repo](https://github.com/blakemizelle/nationbuilder-rails-starter)** - Source code
 
 ### External Resources
 - [NationBuilder API Docs](https://support.nationbuilder.com/en/articles/9899245-api-v2-walkthrough)
@@ -317,7 +317,7 @@ heroku run rails console
 
 ### GitHub Issues
 Open an issue on GitHub if you encounter problems:
-https://github.com/blakemizelle/nationbuilder-rails-app/issues
+https://github.com/blakemizelle/nationbuilder-rails-starter/issues
 
 ---
 
