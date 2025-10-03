@@ -4,7 +4,8 @@ class OAuthController < ApplicationController
     nation_slug = params[:nation]
     
     unless nation_slug.present?
-      redirect_to root_path, alert: "Missing nation parameter"
+      # Show error page instead of redirecting (prevents loop)
+      render html: "<h1>Missing Nation Parameter</h1><p>Please visit this URL with ?nation=yourslug</p><p>Example: http://localhost:3000/?nation=yourslug</p>".html_safe, status: :bad_request
       return
     end
     
